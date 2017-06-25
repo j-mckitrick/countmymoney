@@ -1,0 +1,12 @@
+Updated to Hunchentoot 1.0:
+---------------------------
+- JSON methods must (format nil ...)
+- use ENCODE-JSON-ALIST-TO-STRING rather than ENCODE-JSON-ALIST
+- *might* be able to deprecate cookie id, if sessions work with AJAX calls.
+
+TO DO:
+- query by date
+- additional financial statements
+- change class names back to <> notation (Only for non-db classes.)
+- trap RETURN key like mood genie js
+

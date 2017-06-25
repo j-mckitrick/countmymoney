@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	  "http://www.w3.org/TR/xhtml11/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <link type="text/css" href="/style/main.css" rel="stylesheet" />
+    <script type="text/javascript" src="/js/jquery-1.4.2.min.js"></script>
+<!--    <script type="text/javascript" src="/js/jquery-1.3.1.min.js"></script>-->
+    <script type="text/javascript" src="/js/jquery-extensions.js"></script>
+    <script type="text/javascript" src="/js/cmm-1.0.js"></script>
+    <script type="text/javascript">
+      $(CMM.init);
+    </script>
+    <title>Count My Money</title>
+  </head>
+
+  <body>
+
+    <div id="loginform" style="display:none">
+      <form method="post" action="login">
+	<div>
+	  <label for="user">Username:</label>
+	  <input type="text" name="user" id="user" />
+	  <label for="pass">Password:</label>
+	  <input type="password" name="pass" id="pass" />
+	  <label for="persist">Persist</label>
+	  <input type="checkbox" name="persist" id="persist" />
+	  <input type="button" value="Login" id="loginbutton"/>
+	  <input type="button" value="Cancel" id="cancelbutton"/>
+	  <span id="login_message"></span>
+	</div>
+      </form>
+    </div>
+
+    <div id="banner">
+      <span class="Button" id="showlogin">Login</span>
+      <span class="BText">Count My Money</span>
+    </div>
+
+    <div class="Cleanframe" id="userdiv" style="display:none">
+      <span id="username">Not Logged In.</span>
+      <span id="span_month"></span>
+    </div>
+
+    <div class="Cleanframe" id="div_month">
+      <span>Year</span>
+      <select id="years">
+		<option>2010</option>
+		<option>2009</option>
+      </select>
+      <span>Month</span>
+      <select id="months">
+      </select>
+      <span>Day</span>
+      <select id="days">
+      </select>
+    </div>
+
+    <div class="Cleanframe" id="menubar">
+      <span class="Button" id="getentries">Refresh All</span>
+      <span class="Button" id="getincome">Get P/L</span>
+      <span class="Button" id="getcapital">Get Capital</span>
+      <span class="Button" id="getbalance">Get Balance Sheet</span>
+      <span class="Button" id="getcashflow">Get Cashflow</span>
+      <span class="Button" id="dotest">Test</span>
+    </div>
+
+    <div class="Cleanframe" id="entryform" style="display:none;width:25%">
+      <form method="post" action="">
+	<table width="200px">
+	  <tr>
+	    <td>Category</td>
+	    <td>
+	      <select name="categories" id="categories">
+		<option value="0">Select One</option>
+	      </select>
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>Amount</td>
+	    <td>
+	      <input type="text" id="amount" name="amount" />
+	    </td>
+	  </tr>
+	  <tr>
+	    <td>Description</td>
+	    <td>
+	      <input type="text" id="desc" name="desc" />
+	    </td>
+	  </tr>
+	  <tr class="tr_clients" style="display:none">
+	    <td>Client</td>
+	    <td>
+	      <select name="client" id="client">
+		<option value="">Select One</option>
+	      </select>
+	    </td>
+	  </tr>
+	  <tr class="tr_clients" style="display:none">
+	    <td>Add Client</td>
+	    <td>
+	      <input type="text" id="new_client" name="new_client" />
+	    </td>
+	  </tr>
+	  <tr>
+	    <td><input type="button" id="addbutton" value="Add"/></td>
+	  </tr>
+	</table>
+      </form>
+    </div>
+
+    <div class="Cleanframe" id="contentpane" style="display:none">
+      <table id="entrytable">
+	<tr>
+	  <th>Date</th>
+	  <th>Category</th>
+	  <th>Description</th>
+	  <th>Amount</th>
+	  <th class="votes" colspan="2">Actions</th>
+	</tr>
+      </table>
+    </div>
+
+    <div class="Cleanframe2 T-account" style="display:none">
+      <table id="assetstable">
+	<caption>Assets</caption>
+	<tr>
+	  <th>Date/Description</th>
+	  <th>Debit</th>
+	  <th>Credit</th>
+	</tr>
+	<tr class="Row">
+	  <td>Today</td>
+	  <td>100.00</td>
+	  <td></td>
+	</tr>
+      </table>
+    </div>
+
+    <div class="Cleanframe2 T-account" style="display:none">
+      <table id="revenuetable">
+	<caption>Revenue</caption>
+	<tr>
+	  <th>Date/Description</th>
+	  <th>Debit</th>
+	  <th>Credit</th>
+	</tr>
+	<tr class="Row">
+	  <td>Today</td>
+	  <td>100.00</td>
+	  <td></td>
+	</tr>
+      </table>
+    </div>
+
+    <div class="Cleanframe2 T-account" style="display:none">
+      <table id="expensestable">
+	<caption>Expenses</caption>
+	<tr>
+	  <th>Date/Description</th>
+	  <th>Debit</th>
+	  <th>Credit</th>
+	</tr>
+	<tr class="Row">
+	  <td>Today</td>
+	  <td>100.00</td>
+	  <td></td>
+	</tr>
+      </table>
+    </div>
+
+    <div class="Cleanframe2 T-account" style="display:none">
+      <table id="drawtable">
+	<caption>Owner Draw</caption>
+	<tr>
+	  <th>Date/Description</th>
+	  <th>Debit</th>
+	  <th>Credit</th>
+	</tr>
+	<tr class="Row">
+	  <td>Today</td>
+	  <td>100.00</td>
+	  <td></td>
+	</tr>
+      </table>
+    </div>
+
+    <div class="Cleanframe2 T-account" style="display:none">
+      <table id="totalstable">
+	<caption>Total</caption>
+	<tr>
+	  <th>Debits</th>
+	  <th>Credits</th>
+	</tr>
+	<tr class="Row">
+	  <td id="totaldebits">100.00</td>
+	  <td id="totalcredits">100.00</td>
+	</tr>
+      </table>
+    </div>
+
+   <div style="clear:left">
+    </div>
+
+   <div class="Cleanframe Report" id="income" style="display:none">
+      <table id="incomestatement">
+	<caption>Income Statement</caption>
+	<tr>
+	  <th>Item</th>
+	  <th>Amount</th>
+	  <th>Totals</th>
+	</tr>
+	<tr>
+	  <td>Revenues</td>
+	  <td></td>
+	  <td id="totalrevenue"></td>
+	</tr>
+	<tr>
+	  <td>Expenses</td>
+	  <td></td>
+	  <td id="totalexpenses"></td>
+	</tr>
+	<tr>
+	  <td>Net Income</td>
+	  <td></td>
+	  <td id="netincome"></td>
+	</tr>
+      </table>
+    </div>
+
+    <div class="Cleanframe Report" id="capital" style="display:none">
+      <table id="capitalreport">
+	<caption>Capital Report</caption>
+	<tr>
+	  <th colspan="2">Begin</th>
+	  <td id="cap_begin"></td>
+	</tr>
+	<tr>
+	  <td>Contrib</td>
+	  <td id="cap_contrib"></td>
+	</tr>
+	<tr>
+	  <td>Income</td>
+	  <td id="cap_income"></td>
+	</tr>
+	<tr>
+	  <td>Withdrawals</td>
+	  <td id="cap_withdrawals"></td>
+	</tr>
+	<tr>
+	  <th colspan="2">Change</th>
+	  <td id="cap_change"></td>
+	</tr>
+	<tr>
+	  <th colspan="2">End</th>
+	  <td id="cap_end"></td>
+	</tr>
+      </table>
+    </div>
+
+    <div class="Cleanframe Report" id="balance" style="display:none">
+    </div>
+
+    <div class="Cleanframe Report" id="cashflow" style="display:none">
+      <table id="cashflowreport">
+	<caption>Cash Flow Report</caption>
+	<tr>
+	  <th colspan="2">Begin</th>
+	  <td id="cash_begin"></td>
+	</tr>
+	<tr>
+	  <td>Cash In</td>
+	  <td id="cash_in"></td>
+	</tr>
+	<tr>
+	  <td>Cash Out</td>
+	  <td id="cash_out"></td>
+	</tr>
+	<tr>
+	  <th colspan="2">Change</th>
+	  <td id="cash_change"></td>
+	</tr>
+	<tr>
+	  <th colspan="2">End</th>
+	  <td id="cash_end"></td>
+	</tr>
+      </table>
+    </div>
+
+    <div style="clear:left">
+    </div>
+    
+  </body>
+
+</html>
